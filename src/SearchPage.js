@@ -17,8 +17,15 @@ class SearchPage extends Component {
     });
   }
 
+  getBookWithShelf(book) {
+    const shelf = this.props.shelfByBookId.get(book.id);
+    book.shelf = shelf || "none";
+    return book;
+  }
+
   render() {
     const {booksFound = []} = this.state;
+    const booksWithShelf = booksFound.map(book => this.getBookWithShelf(book))
     return(
       <div className="search-books">
         <div className="search-books-bar">
@@ -34,7 +41,7 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {booksFound.map((book) => (
+          {booksWithShelf.map((book) => (
               <li key={book.id}>
                 <Book
                   book={book}
