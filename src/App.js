@@ -13,9 +13,10 @@ export const bookShelves = [
 ];
 
 class BooksApp extends React.Component {
-/*   constructor(props, context) {
+  constructor(props, context) {
     super(props, context);
-  } */
+    this.updateBook = this.updateBook.bind(this);
+  }
 
   state = {
     books: []
@@ -41,7 +42,10 @@ class BooksApp extends React.Component {
     return shelfByBookId;
   }
 
-  updateBook = (book, shelf) => {
+  updateBook(book, shelf) {
+    if (this.state.books.filter(b => b.id === book.id).length === 0) {
+      this.setState(state => ({books: state.books.concat([book])}));
+    }
     BooksAPI.update(book, shelf).then(() => {
       this.setState(state => ({
         books: state.books.map(b => {

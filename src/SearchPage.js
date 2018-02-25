@@ -13,7 +13,6 @@ class SearchPage extends Component {
     this.setState({query});
     BooksApi.search(query, 20).then( booksFound => {
       this.setState({booksFound})
-      console.log(booksFound);
     });
   }
 

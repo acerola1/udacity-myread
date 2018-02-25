@@ -3,7 +3,7 @@ import BookshelfChanger from './BookshelfChanger';
 
 class Book extends Component {
   render() {
-    let {title, authors, shelf, imageLinks} = this.props.book;
+    let {title, authors = [], shelf, imageLinks} = this.props.book;
     return(
       <div className="book">
         <div className="book-top">
