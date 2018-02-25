@@ -14,10 +14,16 @@ class SearchPage extends Component {
     Promise.resolve().then(
       () => BooksApi.search(query, 20)
     ).then( booksFound => {
+      if (!booksFound) {
+        return Promise.reject("Undefined data");
+      }
+      if (booksFound.error) {
+        return Promise.reject(booksFound.error);
+      }
       this.setState({booksFound})
     }).catch((e) => {
       this.setState({booksFound: []})
-      console.log(e);
+      //console.log("error", e);
     });
   }
 
