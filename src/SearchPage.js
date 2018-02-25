@@ -11,8 +11,13 @@ class SearchPage extends Component {
 
   setQuery(query) {
     this.setState({query});
-    BooksApi.search(query, 20).then( booksFound => {
+    Promise.resolve().then(
+      () => BooksApi.search(query, 20)
+    ).then( booksFound => {
       this.setState({booksFound})
+    }).catch((e) => {
+      this.setState({booksFound: []})
+      console.log(e);
     });
   }
 
