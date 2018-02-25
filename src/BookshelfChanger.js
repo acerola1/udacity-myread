@@ -10,10 +10,10 @@ class BookshelfChanger extends Component {
   ];
 
   render() {
-    const {bookShelf} = this.props;
+    const {bookShelf, book, onUpdateBook} = this.props;
     return (
       <div className="book-shelf-changer">
-        <select defaultValue={bookShelf}>
+        <select defaultValue={bookShelf} onChange={e => onUpdateBook(book, e.target.value)}>
           {this.options.map(o =>
             <option
               key={o.value}

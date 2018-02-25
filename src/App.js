@@ -2,7 +2,7 @@ import React from 'react';
 import * as BooksAPI from './BooksAPI'
 import './App.css';
 import SearchPage from './SearchPage';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import BookShelf from './BookShelf';
 import AddBook from './AddBook';
 
@@ -13,9 +13,9 @@ export const bookShelves = [
 ];
 
 class BooksApp extends React.Component {
-  constructor(props, context) {
+/*   constructor(props, context) {
     super(props, context);
-  }
+  } */
 
   state = {
     books: []
@@ -32,6 +32,16 @@ class BooksApp extends React.Component {
 
   getBooksByShelf(shelf) {
     return this.state.books.filter((book) => book.shelf === shelf);
+  }
+
+  updateBook = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+      this.setState(state => ({
+        books: state.books.map(b => {
+          if (b.id === book.id) b.shelf=shelf;
+          return b;
+        })
+    }))});
   }
 
   render() {
@@ -53,6 +63,7 @@ class BooksApp extends React.Component {
                     key={shelf.value}
                     title={shelf.text}
                     books={this.getBooksByShelf(shelf.value)}
+                    onUpdateBook={this.updateBook}
                   />
                 ))}
               </div>
