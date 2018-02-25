@@ -10,7 +10,7 @@ class BookshelfChanger extends Component {
   ];
 
   render() {
-    const {bookShelf, book, onUpdateBook} = this.props;
+    const {bookShelf = "none", book, onUpdateBook} = this.props;
     return (
       <div className="book-shelf-changer">
         <select defaultValue={bookShelf} onChange={e => onUpdateBook(book, e.target.value)}>
