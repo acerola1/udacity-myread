@@ -11,9 +11,7 @@ class SearchPage extends Component {
 
   setQuery(query) {
     this.setState({query});
-    Promise.resolve().then(
-      () => BooksApi.search(query, 20)
-    ).then( booksFound => {
+    BooksApi.search(query, 20).then( booksFound => {
       if (!booksFound) {
         return Promise.reject("Undefined data");
       }
