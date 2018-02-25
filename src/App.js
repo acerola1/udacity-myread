@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import Book from './Book';
 import SearchPage from './SearchPage';
+import { Route, Link } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   state = {
@@ -18,9 +19,10 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        <Route path="/search" render={() => (
           <SearchPage/>
-        ) : (
+        )} />
+        <Route exact path="/" render={() => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -32,11 +34,11 @@ class BooksApp extends React.Component {
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
-                       <Book
-                        title="To Kill a Mockingbird"
-                        authors="Harper Lee"
-                        bookShelf="currentlyReading"
-                        imageUrl='url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")'
+                        <Book
+                          title="To Kill a Mockingbird"
+                          authors="Harper Lee"
+                          bookShelf="currentlyReading"
+                          imageUrl='url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")'
                         />
                       </li>
                       <li>
@@ -167,10 +169,10 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to="/search">Add a book</Link>
             </div>
           </div>
-        )}
+        )} />
       </div>
     )
   }
