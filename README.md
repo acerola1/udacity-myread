@@ -1,8 +1,8 @@
 # MyReads Project
 
-This is my project for Udacity's React Fundamentals course. 
+This is my project (1 of 3) to complete Udacity's [React Fundamentals nanodegree](https://eu.udacity.com/course/react-nanodegree--nd019). 
 
-## TL;DR
+## Installation
 
 To get started developing right away:
 
