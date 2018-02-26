@@ -19,17 +19,17 @@ class BookShelf extends Component {
         <h2 className="bookshelf-title">{this.props.title}</h2>
         <div className="bookshelf-books">
           <ol>
-          <TransitionGroup className='books-grid'>
-            {this.props.books.map((book) => (
-              <Fade key={book.id}>
-              <li>
-                <Book
-                  book={book}
-                  onUpdateBook={this.props.onUpdateBook}
-                />
-              </li>
-              </Fade>
-            ))}
+            <TransitionGroup className='books-grid'>
+              {this.props.books.map((book) => (
+                <Fade key={book.id}>
+                  <li>
+                    <Book
+                      book={book}
+                      onUpdateBook={this.props.onUpdateBook}
+                    />
+                  </li>
+                </Fade>
+              ))}
             </TransitionGroup>
           </ol>
         </div>
