@@ -4,12 +4,13 @@ import BookshelfChanger from './BookshelfChanger';
 class Book extends Component {
   render() {
     let {title, authors = [], shelf, imageLinks = {}} = this.props.book;
+    let {smallThumbnail = "/no_image.png"} = imageLinks;
     return(
       <div className="book">
         <div className="book-top">
           <div
             className="book-cover"
-            style={{ width: 128, height: 193, backgroundImage: 'url(' + imageLinks.smallThumbnail + ')' }}>
+            style={{ width: 128, height: 193, backgroundImage: `url(${smallThumbnail})`}}>
           </div>
           <BookshelfChanger
             bookShelf={shelf}
