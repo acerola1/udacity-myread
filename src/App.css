@@ -172,3 +172,9 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* error page*/
+.error-title {
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}

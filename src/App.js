@@ -2,9 +2,10 @@ import React from 'react';
 import * as BooksAPI from './BooksAPI'
 import './App.css';
 import SearchPage from './SearchPage';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import BookShelf from './BookShelf';
 import AddBook from './AddBook';
+import NotFound from './NotFound';
 
 export const bookShelves = [
   { value: 'currentlyReading', text: 'Currently Reading', disabled: false },
@@ -44,47 +45,51 @@ class BooksApp extends React.Component {
 
   updateBook(book, shelf) {
     if (this.state.books.filter(b => b.id === book.id).length === 0) {
-      this.setState(state => ({books: state.books.concat([book])}));
+      this.setState(state => ({ books: state.books.concat([book]) }));
     }
     BooksAPI.update(book, shelf).then(() => {
       this.setState(state => ({
         books: state.books.map(b => {
-          if (b.id === book.id) b.shelf=shelf;
+          if (b.id === book.id) b.shelf = shelf;
           return b;
         })
-    }))});
+      }))
+    });
   }
 
   render() {
 
     return (
       <div className="app">
-        <Route path="/search" render={() => (
-          <SearchPage
-            onUpdateBook={this.updateBook}
-            shelfByBookId={this.getShelfByBookId()}
-          />
-        )} />
-        <Route exact path="/" render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                {bookShelves.map((shelf) => (
-                  <BookShelf
-                    key={shelf.value}
-                    title={shelf.text}
-                    books={this.getBooksByShelf(shelf.value)}
-                    onUpdateBook={this.updateBook}
-                  />
-                ))}
+        <Switch>
+          <Route path="/search" render={() => (
+            <SearchPage
+              onUpdateBook={this.updateBook}
+              shelfByBookId={this.getShelfByBookId()}
+            />
+          )} />
+          <Route exact path="/" render={() => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
               </div>
+              <div className="list-books-content">
+                <div>
+                  {bookShelves.map((shelf) => (
+                    <BookShelf
+                      key={shelf.value}
+                      title={shelf.text}
+                      books={this.getBooksByShelf(shelf.value)}
+                      onUpdateBook={this.updateBook}
+                    />
+                  ))}
+                </div>
+              </div>
+              <AddBook />
             </div>
-            <AddBook/>
-          </div>
-        )} />
+          )} />
+          <Route path="*" component={NotFound} />
+        </Switch>
       </div>
     )
   }
