@@ -31,15 +31,9 @@ class SearchPage extends Component {
     });
   }
 
-  getBookWithShelf(book) {
-    const shelf = this.props.shelfByBookId.get(book.id);
-    book.shelf = shelf || "none";
-    return book;
-  }
-
   render() {
     const {booksFound = []} = this.state;
-    const booksWithShelf = booksFound.map(book => this.getBookWithShelf(book))
+    const booksWithShelf = booksFound.map(book => ({...book, shelf: this.props.shelfByBookId.get(book.id) || "none"}));
     return(
       <div className="search-books">
         <div className="search-books-bar">
