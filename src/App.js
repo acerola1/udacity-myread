@@ -16,7 +16,6 @@ export const bookShelves = [
 class BooksApp extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.updateBook = this.updateBook.bind(this);
   }
 
   state = {
@@ -43,18 +42,14 @@ class BooksApp extends React.Component {
     return shelfByBookId;
   }
 
-  updateBook(book, shelf) {
-    if (this.state.books.filter(b => b.id === book.id).length === 0) {
-      this.setState(state => ({ books: state.books.concat([book]) }));
-    }
+  updateBook = (book, shelf) => {
+    book.shelf = shelf;
     this.setState(state => ({
-      books: state.books.map(b => {
-        if (b.id === book.id) b.shelf = shelf;
-        return b;
+      books: state.books.filter(b => b.id != book.id).concat([book])
       })
-    }))    
+    );
     BooksAPI.update(book, shelf);
-  }
+  };
 
   render() {
 
